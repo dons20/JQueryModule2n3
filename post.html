@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Post Test</title>
+        <link rel="stylesheet" href="style.css" />
     </head>
 
     <body>
@@ -38,7 +39,6 @@
 
                 // Put the results in a div
                 posting.done(function(data) {
-                    console.log(data);
                     var content = $(data);
                     $("#response")
                         .empty()

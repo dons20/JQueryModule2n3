@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>JQuery UI Test</title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <h1>Jquery UI Interactions</h1>
+
+        <h2>Draggable</h2>
+        <div id="draggable" class="ui-widget-content">
+            <p>Drag me to my target</p>
+        </div>
+
+        <h2>Droppable + Resizable</h2>
+        <div id="droppable" class="ui-widget-header">
+            <p>Drop here</p>
+        </div>
+
+        <h2>Sortable</h2>
+        <ul id="sortable">
+            <li class="ui-state-default">Item 1</li>
+            <li class="ui-state-default">Item 2</li>
+            <li class="ui-state-default">Item 3</li>
+            <li class="ui-state-default">Item 4</li>
+            <li class="ui-state-default">Item 5</li>
+        </ul>
+
+        <h2>Selectable</h2>
+        <ul id="selectable">
+            <li class="ui-state-default">Item 1</li>
+            <li class="ui-state-default">Item 2</li>
+            <li class="ui-state-default">Item 3</li>
+            <li class="ui-state-default">Item 4</li>
+            <li class="ui-state-default">Item 5</li>
+        </ul>
+
+        <hr />
+
+        <h1>Jquery UI Widgets</h1>
+        <div class="widget">
+            <button>A button element</button>
+            <p>Date: <input type="text" id="datepicker" /></p>
+            <div id="dialog" title="Basic dialog">
+                <p>
+                    Here's a dialog widget
+                </p>
+            </div>
+            <br />
+            <div id="progressbar"></div>
+            <br />
+            <div id="slider"></div>
+            <br />
+        </div>
+
+        <h1>JQuery UI Effects</h1>
+        <div class="toggler">
+            <div id="effect" class="ui-widget-content ui-corner-all">
+                <h3 class="ui-widget-header ui-corner-all">Effect</h3>
+                <p>
+                    Let's see some cool effects!
+                </p>
+            </div>
+        </div>
+        <select name="effects" id="effectTypes">
+            <option value="blind">Blind</option>
+            <option value="bounce">Bounce</option>
+
+            <option value="fade">Fade</option>
+            <option value="fold">Fold</option>
+
+            <option value="size">Size</option>
+        </select>
+
+        <br /><br />
+
+        <button id="effectButton" class="ui-state-default ui-corner-all">Run Effect</button>
+
+        <br /><br />
+
+        <script
+            src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            $("#draggable").draggable();
+            $("#droppable")
+                .droppable({
+                    drop: function(event, ui) {
+                        $(this)
+                            .addClass("ui-state-highlight")
+                            .find("p")
+                            .html("Dropped!");
+                    }
+                })
+                .resizable();
+
+            $("#sortable").sortable();
+
+            $("#selectable").selectable();
+
+            $(".widget button").button();
+            $("#datepicker").datepicker();
+            $("#dialog").dialog();
+            $("#progressbar").progressbar({
+                value: 50
+            });
+            $("#slider").slider();
+
+            // run the currently selected effect
+            function runEffect() {
+                // get effect type from
+                var selectedEffect = $("#effectTypes").val();
+
+                // Most effect types need no options passed by default
+                var options = {};
+                // some effects have required parameters
+                if (selectedEffect === "scale") {
+                    options = { percent: 50 };
+                } else if (selectedEffect === "transfer") {
+                    options = { to: "#button", className: "ui-effects-transfer" };
+                } else if (selectedEffect === "size") {
+                    options = { to: { width: 200, height: 60 } };
+                }
+
+                // Run the effect
+                $("#effect").effect(selectedEffect, options, 500, callback);
+            }
+
+            // Callback function to bring a hidden box back
+            function callback() {
+                setTimeout(function() {
+                    $("#effect")
+                        .removeAttr("style")
+                        .hide()
+                        .fadeIn();
+                }, 1000);
+            }
+
+            // Set effect from select menu value
+            $("#effectButton").on("click", function() {
+                runEffect();
+                return false;
+            });
+        </script>
+    </body>
+</html>

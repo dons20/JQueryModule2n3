@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Fancy Form</title>
+        <style>
+            body {
+                background-color: rgb(255, 254, 245);
+                color: rgb(48, 40, 40);
+                font-family: "Source Sans Pro", "Open Sans", Helvetica, sans-serif;
+                margin: auto;
+                max-width: 900px;
+            }
+            form {
+                border: 1px solid black;
+                margin-top: 20px;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 30px;
+                min-height: 100px;
+                position: relative;
+                width: 100% - 60px;
+            }
+            form > label {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 10px;
+                margin: 10px auto;
+                width: 50%;
+            }
+            form > .radio {
+                display: flex;
+            }
+            form > .radio > input:nth-child(1) {
+                margin-left: 20%;
+            }
+            #billing::before {
+                background-color: rgb(255, 254, 245);
+                content: "Billing Information";
+                display: inline-block;
+                top: -10px;
+                left: 10px;
+                padding: 0 10px;
+                position: absolute;
+            }
+            .error {
+                color: tomato;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Fun With Forms</h1>
+        <hr />
+        <form id="billing" action="" method="post">
+            <label>
+                NAME
+                <input type="text" name="name" required />
+            </label>
+            <label>
+                ADDRESS
+                <input type="text" name="address" required />
+            </label>
+            <label>
+                CITY
+                <input type="text" name="city" required />
+            </label>
+            <label>
+                STATE/PROVINCE
+                <input type="text" name="state" required />
+            </label>
+            <label>
+                POSTAL CODE
+                <input type="text" name="postal" required />
+            </label>
+            <label>
+                COUNTRY
+                <select name="country">
+                    <option value="">Choose your country</option>
+                    <option value="Jamaica">Jamaica</option>
+                    <option value="China">China</option>
+                </select>
+            </label>
+            <label class="radio">
+                PAYMENT METHOD
+                <input type="radio" name="payment" value="PayPal" checked />PayPal
+                <input type="radio" name="payment" value="Visa" />Visa
+                <input type="radio" name="payment" value="MasterCard" />MasterCard
+            </label>
+            <label>
+                CARD NUMBER
+                <input type="text" name="name" disabled />
+            </label>
+            <label>
+                EXPIRATION DATE
+                <input type="text" name="name" disabled />
+            </label>
+            <input type="submit" />
+        </form>
+
+        <script
+            src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+        <script>
+            $("#billing").validate({
+                messages: {
+                    name: "Please specify your name",
+                    address: "We need your street address to contact you",
+                    city: "We need your city to complete the address",
+                    state: "We need your state to complete the address",
+                    postal: "We need your postal code to complete the address"
+                }
+            });
+        </script>
+    </body>
+</html>

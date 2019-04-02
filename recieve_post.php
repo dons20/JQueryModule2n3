@@ -1,5 +1,5 @@
-<pre>
 <?php
-echo $_POST["firstname"];
-?>
-</pre> 
+echo "<pre>";
+print_r($_POST);
+echo "</pre>";
+ 
