@@ -53,7 +53,7 @@
     <body>
         <h1>Fun With Forms</h1>
         <hr />
-        <form id="billing" action="" method="post">
+        <form id="billing" action="process-form.php">
             <label>
                 NAME
                 <input type="text" name="name" required />
@@ -90,13 +90,13 @@
             </label>
             <label>
                 CARD NUMBER
-                <input type="text" name="name" disabled />
+                <input type="text" name="cardno" disabled />
             </label>
             <label>
                 EXPIRATION DATE
-                <input type="text" name="name" disabled />
+                <input type="text" name="expdate" disabled />
             </label>
-            <input type="submit" />
+            <input type="submit" value="Submit" />
         </form>
 
         <script
@@ -114,6 +114,28 @@
                     state: "We need your state to complete the address",
                     postal: "We need your postal code to complete the address"
                 }
+            });
+            $("#billing").submit(function(event) {
+                event.preventDefault();
+
+                // Get some values from elements on the page:
+                var $form = $(this),
+                    url = $form.attr("action");
+
+                // Send the data using post
+                var posting = $.post(url, $form.serialize());
+
+                // Put the results in a div
+                posting.done(function(response) {
+                    alert(response);
+                });
+            });
+            $('input[value="Visa"], input[value="MasterCard"]').on("click", function() {
+                $('input[name="cardno"], input[name="expdate"]').removeAttr("disabled");
+            });
+
+            $('input[value="PayPal"]').on("click", function() {
+                $("input[name='cardno'], input[name='expdate']").attr("disabled", "");
             });
         </script>
     </body>
