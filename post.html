@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Post Test</title>
+    </head>
+
+    <body>
+        <form id="userForm" action="recieve_post.php">
+            <div><input type="text" name="firstname" placeholder="Firstname" /></div>
+            <div><input type="text" name="lastname" placeholder="Lastname" /></div>
+            <div><input type="text" name="email" placeholder="Email" /></div>
+            <div><input type="submit" value="Submit" /></div>
+        </form>
+
+        <!-- where the response will be displayed -->
+        <div id="response"></div>
+
+        <script
+            src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            // Attach a submit handler to the form
+            $("#userForm").submit(function(event) {
+                // Stop form from submitting normally
+                event.preventDefault();
+
+                // Get some values from elements on the page:
+                var $form = $(this),
+                    url = $form.attr("action");
+
+                // Send the data using post
+                var posting = $.post(url, $form.serialize());
+
+                // Put the results in a div
+                posting.done(function(data) {
+                    console.log(data);
+                    var content = $(data);
+                    $("#response")
+                        .empty()
+                        .append(content);
+                });
+            });
+        </script>
+    </body>
+</html>
